@@ -2,23 +2,19 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import Pagenation from "../components/pagenation"
-import { getAllBlogs, blogsPerPage } from '../utils/mdQueries'
+import Pagenation from "../../../components/pagenation"
+import { getAllBlogs, blogsPerPage } from '../../../utils/mdQueries'
 
-export const metadata = {
-    title: "ブログ｜ウッホウホウホハウス",
-    description: "ブログ海苔巻きの一大生産地である纒向遺跡では、海苔巻きを今日も剥いています。"
-  }
-  
-const Blog = async() => {
+const PagenationPage = async(props) => {
     const { blogs, numberPages } = await getAllBlogs()
-    const limitedBlogs = blogs.slice(0, blogsPerPage)
+    const currentPage = props.params.pagenation
+    const limitedBlogs = blogs.slice((currentPage -1) * blogsPerPage, currentPage * blogsPerPage )
     return (
         <>
             <div className="wrapper">
                 <div className="container">
                     <h1>blog</h1>
-                    <p>野生動物の駆除を素手で行っています。メインはハムスターです。</p>
+                    <p>野生動物の駆除を素手で行っています</p>
                     {limitedBlogs.map((blog, index) =>
                         <div key={index} className="blogCard">
                             <div className="cardContainer">
@@ -39,4 +35,12 @@ const Blog = async() => {
     )
 }
 
-export default Blog
+export default PagenationPage
+
+export async function generateStaticParams(){
+    const { numberPages } = await getAllBlogs()
+    let paths = []
+    Array.from({ length: numberPages }).map((_, index) => paths.push(`/blog/page/${index + 2}`))
+
+    return paths
+}

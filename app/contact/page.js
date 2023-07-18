@@ -1,5 +1,8 @@
 // app/contact/page.js
-
+export const metadata = {
+    title: "コンタクト｜ウッホウホウホハウス",
+    description: "海苔巻きの一大生産地である纒向遺跡では、海苔巻きを今日も剥いています。"
+  }
 
 const Contact = () => {
     return (

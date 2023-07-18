@@ -5,6 +5,12 @@ import Image from 'next/image'
 import heroPic from '../public/images/index-hero.jpg'
 import profilePic from '../public/images/profile.jpg'
 
+export const metadata = {
+  title: "ウッホウホウホハウス",
+  description: "海苔巻きの一大生産地である纒向遺跡では、海苔巻きを今日も剥いています。"
+}
+
+
 const Index = () => {
   return (
     <>
